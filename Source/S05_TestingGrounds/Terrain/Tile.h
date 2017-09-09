@@ -15,7 +15,7 @@ public:
 	ATile();
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void PlaceActors(TSubclassOf<AActor> ToSpawn, int MinSpawn, int MaxSpawn);
+	void PlaceActors(TSubclassOf<AActor> ToSpawn, int MinSpawn = 1, int MaxSpawn = 1, float Radius = 500, float MinScale = .9f, float MaxScale = 1.2f);
 
 
 protected:
@@ -29,5 +29,9 @@ public:
 	
 private:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
-	bool CastSphere(FVector Location, float Radius);
+	bool CanSpawnAtLocation(FVector Location, float Radius);
+	bool GetEmptyLocation(FVector & SpawnPoint, float Radius);
+	void PlaceActor(TSubclassOf<AActor> ToSpawn, FVector SpawnPoint, float Rotation, float Scale);
+
+	FBox Bounds;
 };
