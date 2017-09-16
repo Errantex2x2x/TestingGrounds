@@ -2,6 +2,7 @@
 
 #include "S05_TestingGrounds.h"
 #include "DrawDebugHelpers.h"
+#include "ActorPool.h"
 #include "Tile.h"
 
 
@@ -39,11 +40,32 @@ void ATile::BeginPlay()
 	Super::BeginPlay();
 }
 
+void ATile::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Pool->Return(NavMeshBoundsVolume)
+}
+
 // Called every frame
 void ATile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ATile::SetPool(UActorPool * Pool)
+{
+	Pool = Pool;
+	PositionNavMeshBoundsVolume();
+}
+
+void ATile::PositionNavMeshBoundsVolume()
+{
+	NavMeshBoundsVolume = Pool->Checkout();
+
+	if (NavMeshBoundsVolume)
+	{
+		NavMeshBoundsVolume->SetActorLocation(GetActorLocation());
+	}
 }
 
 bool ATile::CanSpawnAtLocation(FVector Location, float Radius)

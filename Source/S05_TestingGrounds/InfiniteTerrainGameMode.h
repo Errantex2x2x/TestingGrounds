@@ -6,6 +6,8 @@
 #include "InfiniteTerrainGameMode.generated.h"
 
 class ANavMeshBoundsVolume;
+class UActorPool;
+
 /**
  * 
  */
@@ -14,12 +16,16 @@ class S05_TESTINGGROUNDS_API AInfiniteTerrainGameMode : public AGameMode
 {
 	GENERATED_BODY()
 
+	AInfiniteTerrainGameMode();
+
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 		void AddToPool(ANavMeshBoundsVolume * VolumeToAdd);
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 		void PopulateBoundsVolumePool();
-	
-	
+
+public:
+	UPROPERTY(BlueprintReadOnly, Category = "Setup")
+		UActorPool * Pool;
 	
 protected:
 	virtual void BeginPlay() override;
