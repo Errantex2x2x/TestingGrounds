@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "S05_TestingGrounds.h"
+#include "EngineUtils.h"
+#include "AI/Navigation/NavMeshBoundsVolume.h"
 #include "ActorPool.h"
 
 
@@ -10,7 +12,7 @@ UActorPool::UActorPool()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
+	Pool = TArray<AActor *> ();
 	// ...
 }
 
@@ -19,25 +21,25 @@ void UActorPool::BeginPlay()
 	TActorIterator<ANavMeshBoundsVolume> VolumeIterator = TActorIterator<ANavMeshBoundsVolume>(GetWorld());
 	while (VolumeIterator)
 	{
-		AddToPool(*VolumeIterator);
+		Add(*VolumeIterator);
 		++VolumeIterator;
 	}
 }
 
 AActor * UActorPool::Checkout()
 {	
-	if (Pool.Num() > 0)
-		return Pool.Pop();
-	else
+	//if (Pool.Num() > 0)
+	//	return Pool.Pop();
+	//else
 		return nullptr;
 }
 
 void UActorPool::Return(AActor * ActorToReturn) 
 {
-	Add(ActorToReturn);
+//	Add(ActorToReturn);
 }
 
 void UActorPool::Add(AActor * ActorToAdd)
 {
-	Pool.Push(ActorToAdd);
+//	Pool.Push(ActorToAdd);
 }

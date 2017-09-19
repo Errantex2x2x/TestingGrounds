@@ -42,7 +42,7 @@ void ATile::BeginPlay()
 
 void ATile::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	Pool->Return(NavMeshBoundsVolume)
+	Pool->Return(NavMeshBoundsVolume);
 }
 
 // Called every frame
@@ -65,6 +65,7 @@ void ATile::PositionNavMeshBoundsVolume()
 	if (NavMeshBoundsVolume)
 	{
 		NavMeshBoundsVolume->SetActorLocation(GetActorLocation());
+		GetWorld()->GetNavigationSystem()->Build();
 	}
 }
 
